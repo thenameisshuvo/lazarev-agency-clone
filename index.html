@@ -1,224 +1,481 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./css/input.css">
+  <meta name="description" content="Lazarev - Premier AI & ML Product Design Agency">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="shortcut icon" href="./Assets/images/fav-icon.png" type="image/x-icon">
-  <!-- google-font -->
+  
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Manrope&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
-  <!-- -remix-icon- -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css"
-    integrity="sha512-HXXR0l2yMwHDrDyxJbrMD9eLvPe3z3qL3PPeozNTsiHJEENxx8DH2CxmV05iwG0dwoz5n4gQZQyYLUNt1Wdgfg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <title>Lazarev-Agency</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0f172a',
+            secondary: '#1e293b',
+            accent: '#334155',
+            button: '#0da34e',
+            text: '#f8fafc',
+            'text-secondary': '#94a3b8',
+          },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+            manrope: ['Manrope', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <title>Lazarev | AI & ML Product Design Agency</title>
+  
+  <style>
+    .gradient-text {
+      background: linear-gradient(90deg, #0da34e 0%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .glass-effect {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    
+    .infinite-scroll {
+      animation: scroll 30s linear infinite;
+    }
+    
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    .cursor-trail {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+    }
+  </style>
 </head>
 
-<body class="font-poppins overflow-x-hidden">
-  <!-- main-container -->
-  <div class="container select-none ">
-    <nav
-      class=" bg-primary-backgound z-50 fixed w-[100%] before:absolute before:contents-[''] before:-z-30  before:h-full before:w-40 hover:before:w-full before:transition-all before:duration-1000 before:ease-in-out before:top-0 before:left-0 before:border-t-4  after:absolute after:contents-[''] after:-z-30 after:w-40 hover:after:w-full after:transition-all after:duration-1000 after:ease-in-out after:h-full  after:top-0 after:right-0 after:border-b-4  before:border-button-background after:border-button-background text-primery-text py-6  px-[5%] md:px-[10%] flex justify-between items-center">
+<body class="font-poppins bg-primary text-text overflow-x-hidden selection:bg-button selection:text-white">
+  <!-- Cursor Trail -->
+  <div id="cursor-trail" class="cursor-trail bg-white"></div>
+  
+  <!-- Preloader -->
+  <div id="preloader" class="fixed inset-0 z-50 flex items-center justify-center bg-primary transition-opacity duration-500">
+    <div class="relative w-32 h-32">
+      <div class="absolute inset-0 border-4 border-t-button border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin"></div>
+      <div class="absolute inset-4 border-4 border-t-transparent border-r-button border-b-transparent border-l-transparent rounded-full animate-spin animation-delay-100"></div>
+      <div class="absolute inset-8 border-4 border-t-transparent border-r-transparent border-b-button border-l-transparent rounded-full animate-spin animation-delay-200"></div>
+    </div>
+  </div>
 
-      <!-- --logo-- -->
-      <div class=" text-4xl font-extrabold uppercase animate-pulse ">
-        <a href="/">
-          <h2>lazarev.</h2>
+  <!-- Main Container -->
+  <div class="container mx-auto">
+    <!-- Navigation -->
+    <nav class="glass-effect fixed w-full z-40 py-6 px-[5%] md:px-[10%] flex justify-between items-center">
+      <a href="/" class="text-4xl font-extrabold uppercase hover:text-button transition-colors duration-300">
+        <h2>lazarev.</h2>
+      </a>
+      
+      <div class="hidden md:flex items-center gap-8">
+        <div id="dropdown" class="group relative">
+          <button class="flex items-center gap-2 uppercase font-semibold text-lg hover:text-button transition-colors duration-300">
+            What we do
+            <i class="ri-arrow-down-s-line text-xl transition-transform duration-300 group-hover:rotate-180"></i>
+          </button>
+          <div id="dropdown-links" class="absolute hidden group-hover:block mt-2 w-64 bg-white text-black py-3 rounded-lg shadow-2xl space-y-1 left-0 animate-fadeIn">
+            <a href="#" class="block px-4 py-3 hover:bg-gray-100 transition-colors duration-200"><i class="ri-flashlight-fill text-button mr-2"></i> AI & ML</a>
+            <a href="#" class="block px-4 py-3 hover:bg-gray-100 transition-colors duration-200"><i class="ri-currency-fill text-blue-500 mr-2"></i> FinTech</a>
+            <a href="#" class="block px-4 py-3 hover:bg-gray-100 transition-colors duration-200"><i class="ri-home-4-fill text-amber-500 mr-2"></i> Real Estate</a>
+            <a href="#" class="block px-4 py-3 hover:bg-gray-100 transition-colors duration-200"><i class="ri-shopping-cart-2-fill text-purple-500 mr-2"></i> E-commerce</a>
+            <a href="#" class="block px-4 py-3 hover:bg-gray-100 transition-colors duration-200"><i class="ri-global-fill text-green-500 mr-2"></i> Web3</a>
+            <div class="border-t border-gray-200 my-1"></div>
+            <a href="#" class="block px-4 py-3 hover:bg-gray-100 transition-colors duration-200"><i class="ri-rocket-2-fill text-red-500 mr-2"></i> MVP</a>
+            <a href="#" class="block px-4 py-3 hover:bg-gray-100 transition-colors duration-200"><i class="ri-restart-fill text-indigo-500 mr-2"></i> Relaunch</a>
+          </div>
+        </div>
+        
+        <a href="#" class="uppercase font-semibold text-lg hover:text-button transition-colors duration-300">Cases</a>
+        <a href="#" class="uppercase font-semibold text-lg hover:text-button transition-colors duration-300">Outcome</a>
+        <a href="#" class="uppercase font-semibold text-lg hover:text-button transition-colors duration-300">News</a>
+        
+        <a href="#" class="relative group px-6 py-3 rounded-full bg-button text-white font-semibold overflow-hidden transition-all duration-300 hover:pr-12">
+          Let's talk
+          <span class="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 group-hover:right-4 transition-all duration-300">
+            <i class="ri-arrow-right-up-line"></i>
+          </span>
+          <span class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
         </a>
       </div>
-      <!-- nav-links -->
-      <div class="uppercase  font-semibold text-xl">
-        <ul class="flex  justify-around items-center  gap-10">
-          <li id="dropdown"
-            class="group   rounded-t-lg px-2 py-1 relative hover:text-accent-background hover:bg-secondary-background hover:scale-95 rotate-3 hover:rotate-0  transition-all duration-300 ease-linear ">
-            what we do <span><i class="ri-arrow-down-s-line text-2xl arrow" id="arrow-sign"></i></span>
-            <ul id="dropdown-links"
-              class="absolute hidden group-hover:block bg-white text-black py-2  rounded-b-lg shadow-xl space-y-2 w-full left-0  ">
-              <li><a href="#"
-                  class="ai_ml cursor-pointer block px-4 py-2 hover:text-button-background transition-all duration-200 ease-linear">🔥AI
-                  & ML</a></li>
-              <li><a href="#"
-                  class=" fintech cursor-pointer block px-4 py-2 hover:text-button-background transition-all duration-200 ease-linear">FinTech</a>
-              </li>
-              <li><a href="#"
-                  class="real-est cursor-pointer block px-4 py-2 hover:text-button-background transition-all duration-200 ease-linear">Real
-                  Estate</a></li>
-              <li><a href="#"
-                  class="e-commerce cursor-pointer block px-4 py-2 hover:text-button-background transition-all duration-200 ease-linear">E-commerce</a>
-              </li>
-              <li><a href="#"
-                  class="Web3 cursor-pointer block px-4 py-2 hover:text-button-background transition-all duration-200 ease-linear">Web3</a>
-              </li>
-              <li><a href="#"
-                  class=" MVP cursor-pointer block px-4 py-2 hover:text-button-background transition-all duration-200 ease-linear">MVP</a>
-              </li>
-              <li><a href="#"
-                  class="Relaunch cursor-pointer block px-4 py-2 hover:text-button-background transition-all duration-200 ease-linear">Relaunch</a>
-              </li>
-            </ul>
-          </li>
-
-
-          <li
-            class="cursor-pointer hover:text-button-background hover:scale-95 rotate-3 hover:rotate-0 transition-all duration-300 ease-linear">
-            cases</li>
-          <li
-            class="cursor-pointer hover:text-button-background hover:scale-95 rotate-3 hover:rotate-0 transition-all duration-300 ease-linear">
-            outcome</li>
-          <li
-            class="cursor-pointer hover:text-button-background hover:scale-95 rotate-3 hover:rotate-0 transition-all duration-300 ease-linear">
-            news</li>
-          <li
-            class="cursor-pointer px-5 py-2  rounded-3xl   hover:scale-95 rotate-3 hover:rotate-0 transition-all duration-300 ease-linear z-10  relative before:absolute before:contents-['']  before:top-0  before:w-full before:h-full before:-z-10 before:bg-button-background  before:rounded-3xl  before:left-28 group overflow-hidden hover:before:left-0 before:transition-all before:duration-300 before:ease-linear">
-            let's talk <span class="ml-4  ">
-              <i class="text-2xl ri-pencil-fill group-hover:hidden  "></i>
-              <i class=" text-2xl ri-arrow-right-up-line hidden group-hover:inline-block"></i>
-            </span>
-          </li>
-        </ul>
-      </div>
+      
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-button" class="md:hidden text-2xl">
+        <i class="ri-menu-line"></i>
+      </button>
     </nav>
-    <!-- home-page -->
-    <section
-      class="w-[100vw] h-[100vh] pt-5  bg-primary-backgound text-primery-text flex flex-col justify-center items-center  ">
-      <div class="py-8  px-10 capitalize font-sans  flex justify-center items-center flex-col">
 
-        <h1 class=" uppercase font-extrabold text-[8vw] flex justify-center items-center ">AI & ML PR<span class="">
-            <svg
-              class=" shadow-[0px_0px_10px_#0DA34E] w-[7vw] rounded-full bg-button-background hover:scale-90 transition-all duration-300 ease-linear"
-              fill="none" viewBox="0 0 131 136">
-              <path class="g-path" data-morph="end" fill="#fff"
-                d="M48 77.457v7.224h7.224l21.307-21.306-7.224-7.225L48 77.457Zm34.118-19.67a1.919 1.919 0 0 0 0-2.716l-4.508-4.508a1.919 1.919 0 0 0-2.716 0l-3.526 3.526 7.224 7.224 3.526-3.525Z">
-              </path>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-30 bg-primary flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
+      <button id="close-menu" class="absolute top-8 right-8 text-2xl text-white"><i class="ri-close-line"></i></button>
+      <div class="flex flex-col items-center gap-8 text-2xl">
+        <a href="#" class="hover:text-button transition-colors duration-300">What we do</a>
+        <a href="#" class="hover:text-button transition-colors duration-300">Cases</a>
+        <a href="#" class="hover:text-button transition-colors duration-300">Outcome</a>
+        <a href="#" class="hover:text-button transition-colors duration-300">News</a>
+        <a href="#" class="mt-8 px-8 py-4 rounded-full bg-button text-white font-semibold">Let's talk</a>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen pt-32 pb-20 px-[5%] md:px-[10%] flex flex-col justify-center items-center text-center relative overflow-hidden">
+      <!-- Animated Background Elements -->
+      <div class="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-gradient-to-r from-button to-blue-500 opacity-10 blur-3xl"></div>
+      <div class="absolute bottom-10 -right-20 w-80 h-80 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-10 blur-3xl"></div>
+      
+      <div class="relative z-10 max-w-6xl">
+        <h1 class="text-6xl md:text-8xl lg:text-9xl font-extrabold uppercase mb-6">
+          <span class="gradient-text">AI & ML</span><br>
+          <span class="flex items-center justify-center gap-4">
+            PRODUCT
+            <svg class="w-16 h-16 md:w-24 md:h-24 bg-button rounded-full p-3 shadow-lg hover:rotate-45 transition-transform duration-500" fill="none" viewBox="0 0 131 136">
+              <path fill="#fff" d="M48 77.457v7.224h7.224l21.307-21.306-7.224-7.225L48 77.457Zm34.118-19.67a1.919 1.919 0 0 0 0-2.716l-4.508-4.508a1.919 1.919 0 0 0-2.716 0l-3.526 3.526 7.224 7.224 3.526-3.525Z"></path>
             </svg>
-          </span>duct</h1>
-        <h1 class="uppercase font-extrabold text-[8vw] flex justify-center items-center">DESIGN Agency</h1>
-
-        <p class="text-2xl text-center">We partner with AI &amp; ML&nbsp;businesses, guiding them from series A <br>to
-          series D and beyond with
-          our expertise in </p>
-
-        <p class="text-lg font-semibold text-center mt-10">we launch <span
-            class="bg-button-background bg-opacity-20 text-button-background border-dotted border-2 border-button-background px-3 py-1.5 shadow-button-background  shadow-[0px_0px_10px] rounded-full animate-pulse">mvps</span>
-          redefine <span
-            class="bg-button-background bg-opacity-20 text-button-background border-dotted border-2 border-button-background px-3 py-1.5 shadow-button-background  shadow-[0px_0px_10px] rounded-full animate-pulse">exiting
-            products</span> & continuously dive into <span
-            class="bg-button-background bg-opacity-20 text-button-background border-dotted border-2 border-button-background px-3 py-1.5 shadow-button-background  shadow-[0px_0px_10px] rounded-full animate-pulse">customer
-            development</span></p>
+          </span>
+          DESIGN
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-text-secondary max-w-3xl mx-auto mb-12">
+          We partner with AI & ML businesses, guiding them from series A to series D and beyond with our expertise in product design and development.
+        </p>
+        
+        <div class="flex flex-wrap justify-center gap-4 mb-16">
+          <span class="px-4 py-2 bg-button bg-opacity-20 text-button border border-button rounded-full shadow-lg hover:scale-105 transition-transform duration-300">
+            <i class="ri-flashlight-fill mr-2"></i> MVPs
+          </span>
+          <span class="px-4 py-2 bg-blue-500 bg-opacity-20 text-blue-500 border border-blue-500 rounded-full shadow-lg hover:scale-105 transition-transform duration-300">
+            <i class="ri-restart-fill mr-2"></i> Product Redesign
+          </span>
+          <span class="px-4 py-2 bg-purple-500 bg-opacity-20 text-purple-500 border border-purple-500 rounded-full shadow-lg hover:scale-105 transition-transform duration-300">
+            <i class="ri-user-voice-fill mr-2"></i> Customer Development
+          </span>
+        </div>
+        
+        <a href="#contact" class="inline-flex items-center gap-3 px-8 py-4 bg-button text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300">
+          Start Your Project
+          <i class="ri-arrow-right-line animate-bounce"></i>
+        </a>
       </div>
-
-      <div id="moving-div"
-        class=" w-[70%]  mt-10 flex py-8  overflow-hidden  relative  before:absolute before:top-0 before:left-0 before:w-24 before:h-full before:z-10 before:bg-primary-backgound  before:shadow-[25px_0px_20px_#111111] after:absolute after:top-0 after:right-0 after:w-24 after:h-full after:z-10 after:bg-primary-backgound after:shadow-[0px_0px_25px_20px_#111111] group">
-
-        <div class="move flex  gap-10 mr-56 animate-infinite-scroll group-hover:pause">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/forbes.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/adweek.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/pmi.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/wf.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/adweek.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/rd.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/pmi.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/webby.svg" alt="">
+      
+      <!-- Client Logos Marquee -->
+      <div class="relative w-full mt-20 py-6 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary via-transparent to-primary z-10 pointer-events-none"></div>
+        <div class="flex items-center infinite-scroll">
+          <div class="flex items-center gap-16 px-8">
+            <img src="https://lazarev.kiev.ua/la24/forbes.svg" alt="Forbes" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/adweek.svg" alt="Adweek" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/pmi.svg" alt="PMI" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/wf.svg" alt="Web Foundation" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/rd.svg" alt="R&D" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/webby.svg" alt="Webby" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/forbes.svg" alt="Forbes" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/adweek.svg" alt="Adweek" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/pmi.svg" alt="PMI" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/wf.svg" alt="Web Foundation" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/rd.svg" alt="R&D" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/webby.svg" alt="Webby" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+          </div>
+          <div class="flex items-center gap-16 px-8">
+            <img src="https://lazarev.kiev.ua/la24/forbes.svg" alt="Forbes" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/adweek.svg" alt="Adweek" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/pmi.svg" alt="PMI" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/wf.svg" alt="Web Foundation" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/rd.svg" alt="R&D" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://lazarev.kiev.ua/la24/webby.svg" alt="Webby" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+          </div>
         </div>
-        <div class="move flex gap-10 ml-56 animate-infinite-scroll group-hover:pause">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/forbes.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/adweek.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/pmi.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/wf.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/adweek.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/rd.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/pmi.svg" alt="">
-          <img class="w-32" src="https://lazarev.kiev.ua/la24/webby.svg" alt="">
-        </div>
-
-
       </div>
     </section>
-    <!-- -second-section- -->
-    <section class=" w-[100vw] h-[100vh] overflow-hidden bg-primary-backgound text-primery-text">
-      <section id="intro-vedio" class=" z-10 relative mx-[10%] my-[3%] h-5/6  py-[10%] rounded-xl  ">
-        <video autoplay muted loop class="-z-20 absolute top-0 left-0 w-full h-full object-cover rounded-2xl">
-          <source src="./Assets/videos/lazarev-hreo-vedio.mp4">
+
+    <!-- Video Showcase Section -->
+    <section class="relative min-h-screen flex items-center justify-center px-[5%] py-20">
+      <div class="absolute inset-0 overflow-hidden rounded-3xl mx-[5%] group">
+        <video autoplay muted loop class="w-full h-full object-cover rounded-3xl">
+          <source src="./Assets/videos/lazarev-hreo-vedio.mp4" type="video/mp4">
         </video>
-        <div class="vedio-cursor absolute h-20 w-20 rounded-full  bg-button-background text-primery-text"></div>
-      </section>
+        <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-10 transition-all duration-500"></div>
+      </div>
+      
+      <div class="relative z-10 text-center max-w-4xl px-6 py-12 glass-effect rounded-2xl backdrop-blur-sm">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Crafting Digital Experiences That Matter</h2>
+        <p class="text-xl text-text-secondary mb-8">Our design process combines cutting-edge technology with human-centered design principles to create products that users love.</p>
+        <button class="px-8 py-3 bg-button text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 mx-auto">
+          <i class="ri-play-fill"></i> Watch Showreel
+        </button>
+      </div>
+      
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+        <i class="ri-arrow-down-line text-3xl text-text-secondary"></i>
+      </div>
     </section>
 
-    <!-- -third-secton- -->
-    <section
-      class=" w-[100vw]  pt-5  bg-primary-backgound text-primery-text flex justify-center items-center ">
-      <section class="mx-[3%] border-t-2 border-secondery-text  p-10 w-full grid grid-cols-1  gap-2">
-        <div class="left  h-full flex gap-2 flex-col flex-wrap justify-center items-start md:flex-row ">
-
-
-          <div class="flex w-full flex-row-reverse justify-center items-end gap-32 md:flex-col md:justify-center md:items-start  flex-1 bg-accent-background px-[5%] py-[15%] md:py-[3%] md:px-[3%] rounded-2xl  shadow-2xl transition-all duration-300 ease-linear  hover:shadow-blue-500/20 hover:scale-95">
-            <p class="text-[#8a8787]">/01</p>
-            <div class="flex flex-col justify-start items-start gap-6">
-              <p class="text-6xl font-bold  ">$500m+</p>
-              <p class="text-secondery-text font-medium text-xl">in funding secured <br> for our clients</p>
-            </div>
+    <!-- Stats Section -->
+    <section class="py-20 px-[5%] md:px-[10%]">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-accent p-8 rounded-2xl hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+          <span class="text-text-secondary absolute top-6 right-6 text-2xl">/01</span>
+          <div class="relative z-10">
+            <p class="text-6xl font-bold mb-4">$500m+</p>
+            <p class="text-lg text-text-secondary">in funding secured for our clients</p>
           </div>
-
-
-          <div class="flex w-full flex-row-reverse justify-center items-end gap-32 md:flex-col md:justify-center md:items-start relative flex-1 bg-accent-background px-[5%] py-[15%] md:py-[3%] md:px-[3%] rounded-2xl shadow-2xl transition-all duration-300 ease-linear  hover:shadow-blue-500/20 hover:scale-95">
-            <img src="./Assets/images/WWW-blob.webp"  class="absolute w-3/6 top-0 left-52 -translate-y-20">
-            <p class="text-[#8a8787]">/02</p>
-            <div class="flex flex-col justify-start items-start gap-6">
-              <p class="text-6xl font-bold  ">120+</p>
-              <p class="text-secondery-text font-medium text-xl">Award breaking <br> our excellence</p>
-            </div>
-          </div>
-
-          <div class="flex w-full flex-row-reverse justify-center items-end gap-32 md:flex-col md:justify-center md:items-start  flex-1 bg-accent-background px-[5%] py-[15%] md:py-[3%] md:px-[3%] rounded-2xl shadow-2xl transition-all duration-300 ease-linear  hover:shadow-blue-500/20 hover:scale-95">
-            <p class="text-[#8a8787]">/03</p>
-            <div class="flex flex-col justify-start items-start gap-6">
-              <p class="text-6xl font-bold  ">2015</p>
-              <p class="text-secondery-text font-medium text-xl">Founded,9years <br> of experience</p>
-            </div>
-          </div>
-
-          
+          <div class="absolute -bottom-20 -right-20 w-40 h-40 bg-button rounded-full opacity-10 blur-xl"></div>
         </div>
-        <div class="right gap-2  flex-wrap h-full flex flex-col justify-center items-center md:flex-row">
-          
-          <div class="flex h-full w-full flex-row-reverse justify-center items-end gap-32 md:flex-col md:justify-center md:items-start  flex-1  bg-accent-background px-[5%] py-[15%] md:py-[3%] md:px-[3%] rounded-2xl shadow-2xl transition-all duration-300 ease-linear  hover:shadow-blue-500/20 hover:scale-95 ">
-            <p class="text-[#8a8787]">/04</p>
-            <div class="flex flex-col justify-start items-start gap-6">
-              <p class="text-6xl font-bold capitalize ">san fraancisco</p>
-              <p class="text-secondery-text font-medium text-xl">Based in heart of AI</p>
-            </div>
+        
+        <div class="bg-accent p-8 rounded-2xl hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+          <span class="text-text-secondary absolute top-6 right-6 text-2xl">/02</span>
+          <div class="relative z-10">
+            <p class="text-6xl font-bold mb-4">120+</p>
+            <p class="text-lg text-text-secondary">Awards recognizing our excellence</p>
           </div>
-
-
-          <div class="flex flex-row-reverse justify-center items-end gap-32 md:flex-col md:justify-center md:items-start w-full flex-1 bg-accent-background px-[5%] py-[15%] md:py-[3%] md:px-[3%] rounded-2xl shadow-2xl transition-all duration-300 ease-linear  hover:shadow-blue-500/20 hover:scale-95">
-            <p class="text-[#8a8787]">/05</p>
-            <div class="flex flex-col justify-start items-start gap-6">
-              <p class="text-6xl font-bold  ">All-in-One Solution</p>
-              <p class="text-secondery-text font-medium text-xl ">From user-research to scalable design systems  <br>we’ve got you covered</p>
-            </div>
-          </div>
-
+          <div class="absolute -top-20 -left-20 w-40 h-40 bg-purple-500 rounded-full opacity-10 blur-xl"></div>
         </div>
-      </section>
+        
+        <div class="bg-accent p-8 rounded-2xl hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+          <span class="text-text-secondary absolute top-6 right-6 text-2xl">/03</span>
+          <div class="relative z-10">
+            <p class="text-6xl font-bold mb-4">2015</p>
+            <p class="text-lg text-text-secondary">Founded, 9 years of experience</p>
+          </div>
+          <div class="absolute -bottom-10 -right-10 w-60 h-60 bg-blue-500 rounded-full opacity-10 blur-xl"></div>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-accent p-8 rounded-2xl hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+          <span class="text-text-secondary absolute top-6 right-6 text-2xl">/04</span>
+          <div class="relative z-10">
+            <p class="text-5xl font-bold mb-4">San Francisco</p>
+            <p class="text-lg text-text-secondary">Based in the heart of AI innovation</p>
+          </div>
+          <div class="absolute -top-10 -right-10 w-40 h-40 bg-pink-500 rounded-full opacity-10 blur-xl"></div>
+        </div>
+        
+        <div class="bg-accent p-8 rounded-2xl hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+          <span class="text-text-secondary absolute top-6 right-6 text-2xl">/05</span>
+          <div class="relative z-10">
+            <p class="text-5xl font-bold mb-4">All-in-One</p>
+            <p class="text-lg text-text-secondary">From research to scalable design systems</p>
+          </div>
+          <div class="absolute -bottom-10 -left-10 w-60 h-60 bg-indigo-500 rounded-full opacity-10 blur-xl"></div>
+        </div>
+      </div>
     </section>
 
+    <!-- Process Section -->
+    <section class="py-20 px-[5%] md:px-[10%] bg-secondary">
+      <div class="max-w-4xl mx-auto text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Our Design Process</h2>
+        <p class="text-xl text-text-secondary">A proven methodology that delivers exceptional results</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="group relative p-6 rounded-2xl bg-accent hover:bg-button transition-all duration-500">
+          <div class="absolute -top-6 -left-6 w-12 h-12 bg-button rounded-full flex items-center justify-center text-white font-bold text-xl group-hover:bg-white group-hover:text-button transition-all duration-500">1</div>
+          <h3 class="text-2xl font-bold mb-3 group-hover:text-white transition-colors duration-500">Discover</h3>
+          <p class="text-text-secondary group-hover:text-white transition-colors duration-500">We research your market, users, and competition to identify opportunities.</p>
+        </div>
+        
+        <div class="group relative p-6 rounded-2xl bg-accent hover:bg-blue-500 transition-all duration-500">
+          <div class="absolute -top-6 -left-6 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl group-hover:bg-white group-hover:text-blue-500 transition-all duration-500">2</div>
+          <h3 class="text-2xl font-bold mb-3 group-hover:text-white transition-colors duration-500">Define</h3>
+          <p class="text-text-secondary group-hover:text-white transition-colors duration-500">We articulate clear product vision and strategy based on insights.</p>
+        </div>
+        
+        <div class="group relative p-6 rounded-2xl bg-accent hover:bg-purple-500 transition-all duration-500">
+          <div class="absolute -top-6 -left-6 w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl group-hover:bg-white group-hover:text-purple-500 transition-all duration-500">3</div>
+          <h3 class="text-2xl font-bold mb-3 group-hover:text-white transition-colors duration-500">Design</h3>
+          <p class="text-text-secondary group-hover:text-white transition-colors duration-500">We create intuitive, beautiful interfaces with pixel-perfect precision.</p>
+        </div>
+        
+        <div class="group relative p-6 rounded-2xl bg-accent hover:bg-indigo-500 transition-all duration-500">
+          <div class="absolute -top-6 -left-6 w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-xl group-hover:bg-white group-hover:text-indigo-500 transition-all duration-500">4</div>
+          <h3 class="text-2xl font-bold mb-3 group-hover:text-white transition-colors duration-500">Deliver</h3>
+          <p class="text-text-secondary group-hover:text-white transition-colors duration-500">We implement and refine until the product exceeds expectations.</p>
+        </div>
+      </div>
+    </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-[5%] md:px-[10%] relative overflow-hidden">
+      <div class="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-r from-button to-blue-500 opacity-10 blur-3xl"></div>
+      <div class="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-10 blur-3xl"></div>
+      
+      <div class="max-w-6xl mx-auto glass-effect p-8 md:p-12 rounded-3xl backdrop-blur-sm">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Transform Your Product?</h2>
+            <p class="text-xl text-text-secondary mb-8">Let's discuss how we can help you create an exceptional digital experience that drives growth.</p>
+            
+            <div class="space-y-6">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-button bg-opacity-20 flex items-center justify-center text-button">
+                  <i class="ri-mail-fill text-xl"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-text-secondary">Email us at</p>
+                  <a href="mailto:hello@lazarev.agency" class="text-lg font-medium hover:text-button transition-colors">hello@lazarev.agency</a>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-blue-500 bg-opacity-20 flex items-center justify-center text-blue-500">
+                  <i class="ri-phone-fill text-xl"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-text-secondary">Call us at</p>
+                  <a href="tel:+11234567890" class="text-lg font-medium hover:text-blue-500 transition-colors">+1 (123) 456-7890</a>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-purple-500 bg-opacity-20 flex items-center justify-center text-purple-500">
+                  <i class="ri-map-pin-2-fill text-xl"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-text-secondary">Visit us at</p>
+                  <p class="text-lg font-medium">123 Design Street, San Francisco</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <form class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-sm font-medium mb-2">Your Name</label>
+                <input type="text" id="name" class="w-full px-4 py-3 bg-accent border border-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-button focus:border-transparent" placeholder="John Doe">
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium mb-2">Your Email</label>
+                <input type="email" id="email" class="w-full px-4 py-3 bg-accent border border-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-button focus:border-transparent" placeholder="john@company.com">
+              </div>
+            </div>
+            
+            <div>
+              <label for="subject" class="block text-sm font-medium mb-2">Subject</label>
+              <input type="text" id="subject" class="w-full px-4 py-3 bg-accent border border-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-button focus:border-transparent" placeholder="Project Inquiry">
+            </div>
+            
+            <div>
+              <label for="message" class="block text-sm font-medium mb-2">Your Message</label>
+              <textarea id="message" rows="4" class="w-full px-4 py-3 bg-accent border border-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-button focus:border-transparent" placeholder="Tell us about your project..."></textarea>
+            </div>
+            
+            <button type="submit" class="w-full px-6 py-4 bg-button text-white font-semibold rounded-lg hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center gap-2">
+              Send Message
+              <i class="ri-send-plane-fill"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-[5%] md:px-[10%] bg-secondary">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div>
+          <h3 class="text-3xl font-extrabold uppercase mb-6">lazarev.</h3>
+          <p class="text-text-secondary mb-6">Leading AI & ML product design agency creating digital experiences that drive growth.</p>
+          <div class="flex gap-4">
+            <a href="#" class="w-10 h-10 rounded-full bg-accent flex items-center justify-center hover:bg-button hover:text-white transition-colors duration-300">
+              <i class="ri-twitter-fill"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-accent flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors duration-300">
+              <i class="ri-linkedin-fill"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-accent flex items-center justify-center hover:bg-pink-500 hover:text-white transition-colors duration-300">
+              <i class="ri-dribbble-fill"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-accent flex items-center justify-center hover:bg-purple-600 hover:text-white transition-colors duration-300">
+              <i class="ri-behance-fill"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-6">Services</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">AI & ML Design</a></li>
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">FinTech Design</a></li>
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">Real Estate Tech</a></li>
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">E-commerce</a></li>
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">Web3 Design</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-6">Company</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">About Us</a></li>
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">Case Studies</a></li>
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">Careers</a></li>
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">Blog</a></li>
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-6">Resources</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">Design Process</a></li>
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">Pricing</a></li>
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">FAQ</a></li>
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">Privacy Policy</a></li>
+            <li><a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-accent mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-text-secondary mb-4 md:mb-0">© 2023 Lazarev Agency. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">Privacy Policy</a>
+          <a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">Terms of Service</a>
+          <a href="#" class="text-text-secondary hover:text-button transition-colors duration-300">Cookies</a>
+        </div>
+      </div>
+    </footer>
   </div>
-  <!-- ----gsap-cdn----- -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
-    integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
-    integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script type="module" src="/main.js"></script>
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.0/dist/lenis.min.js"></script>
+  <script src="./main.js"></script>
 </body>
-
 </html>
